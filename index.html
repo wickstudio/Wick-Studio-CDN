@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wick Studio CDN — Fast Image Hosting & API</title>
+  <meta name="description" content="Wick Studio CDN — fast, secure image hosting with a developer-friendly API and Discord bot management." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Wick Studio" class="logo" />
+        <span class="brand-name">Wick Studio CDN</span>
+      </div>
+      <nav class="nav" id="site-nav">
+        <a href="#features">Features</a>
+        <a href="#api">API</a>
+        <a href="#docs">Docs</a>
+        <a href="#status">Status</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+      <a class="cta" href="#get-started">Get Started</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="orb orb-gold"></div>
+      <div class="orb orb-blue"></div>
+      <div class="container hero-inner">
+        <h1 class="gradient-text">Fast, Secure, Developer‑First Image CDN</h1>
+        <p class="lead">Lightning delivery, private Wasabi storage, and a clean API — managed from Discord.</p>
+        <div class="hero-actions">
+          <a href="#api" class="btn btn-primary">Explore API</a>
+          <a href="#docs" class="btn btn-outline">Open Docs</a>
+          <a href="https://discord.gg/wicks" target="_blank" rel="noopener" class="btn btn-gold">Join Discord</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><span>32MB</span><small>Max file size</small></div>
+          <div class="stat"><span>100/15m</span><small>Rate limit</small></div>
+          <div class="stat"><span>999+</span><small>Image formats</small></div>
+        </div>
+      </div>
+      <div class="hero-glow"></div>
+    </section>
+
+    <section id="features" class="features section">
+      <div class="container grid-3 fade-up">
+        <article class="card">
+          <div class="icon gold">⚡</div>
+          <h3>Edge Performance</h3>
+          <p>Backed by Cloudflare and efficient headers for instant global delivery.</p>
+        </article>
+        <article class="card">
+          <div class="icon blue">🔐</div>
+          <h3>Private Storage</h3>
+          <p>Wasabi S3 is fully hidden. Your links are always clean on <b>img.wick.ink</b>.</p>
+        </article>
+        <article class="card">
+          <div class="icon blue">🧰</div>
+          <h3>Developer Friendly</h3>
+          <p>Simple REST endpoints with examples for cURL, Node.js and Python.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="api" class="api section">
+      <div class="container">
+        <h2 class="section-title">API at a glance</h2>
+        <p class="muted">Base URL: <code class="code-pill" id="base-url">https://api.wick.ink</code></p>
+
+        <div class="grid-2 fade-up">
+          <div class="code-card">
+            <div class="code-header">Upload (cURL)</div>
+            <button class="copy-btn" data-copy="curl -X POST 'https://api.wick.ink/api/v1/upload' -H 'X-API-Key: YOUR_API_KEY' -F 'image=@/path/to/image.jpg' -F 'title=My Image'">Copy</button>
+            <pre><code>curl -X POST "https://api.wick.ink/api/v1/upload" \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -F "image=@/path/to/image.jpg" \
+  -F "title=My Image"</code></pre>
+          </div>
+
+          <div class="code-card">
+            <div class="code-header">Upload (Node.js)</div>
+            <button class="copy-btn" data-copy="const FormData=require('form-data');const fetch=require('node-fetch');const fs=require('fs');const form=new FormData();form.append('image',fs.createReadStream('image.jpg'));(async()=>{const res=await fetch('https://api.wick.ink/api/v1/upload',{method:'POST',headers:{'X-API-Key':'YOUR_API_KEY',...form.getHeaders()},body:form});console.log(await res.json())})();">Copy</button>
+            <pre><code>const FormData = require('form-data');
+const fetch = require('node-fetch');
+const fs = require('fs');
+const form = new FormData();
+form.append('image', fs.createReadStream('image.jpg'));
+const res = await fetch('https://api.wick.ink/api/v1/upload', {
+  method: 'POST', headers: { 'X-API-Key': 'YOUR_API_KEY', ...form.getHeaders() }, body: form
+});
+console.log(await res.json());</code></pre>
+          </div>
+
+          <div class="code-card">
+            <div class="code-header">Upload (Python)</div>
+            <button class="copy-btn" data-copy="import requests\nheaders={'X-API-Key':'YOUR_API_KEY'}\nwith open('image.jpg','rb') as f:\n    files={'image':f}\n    r=requests.post('https://api.wick.ink/api/v1/upload',headers=headers,files=files)\nprint(r.json())">Copy</button>
+            <pre><code>import requests
+headers = {"X-API-Key": "YOUR_API_KEY"}
+with open("image.jpg", "rb") as f:
+    files = {"image": f}
+    r = requests.post("https://api.wick.ink/api/v1/upload", headers=headers, files=files)
+print(r.json())</code></pre>
+          </div>
+
+          <div class="code-card">
+            <div class="code-header">List / Stats</div>
+            <pre><code># List images
+curl -H "X-API-Key: YOUR_API_KEY" \
+  "https://api.wick.ink/api/v1/images?page=1&limit=20"
+
+# Stats
+curl -H "X-API-Key: YOUR_API_KEY" \
+  "https://api.wick.ink/api/v1/stats"</code></pre>
+          </div>
+        </div>
+
+        <div class="info-cards">
+          <article class="info-card">
+            <div class="info-icon">⏱️</div>
+            <div>
+              <h4>Limits</h4>
+              <p>100 requests / 15 minutes / IP • Max 32MB • JPEG, PNG, GIF, WebP, BMP</p>
+            </div>
+          </article>
+          <article class="info-card">
+            <div class="info-icon">🔑</div>
+            <div>
+              <h4>Authentication</h4>
+              <p>Send header <code>X-API-Key: YOUR_API_KEY</code> with each request.</p>
+            </div>
+          </article>
+          <article class="info-card">
+            <div class="info-icon">🌐</div>
+            <div>
+              <h4>CDN</h4>
+              <p>All public links use <code>https://img.wick.ink</code>.</p>
+            </div>
+          </article>
+          <article class="info-card highlight">
+            <div class="info-icon">💬</div>
+            <div>
+              <h4>Get Your API Key</h4>
+              <p>Join our Discord to create your account and manage your key.</p>
+              <a href="https://discord.gg/wicks" target="_blank" rel="noopener" class="btn btn-gold small">Join Discord</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="docs" class="docs section">
+      <div class="container">
+        <h2 class="section-title">Documentation</h2>
+        <div class="doc-grid fade-up">
+          <article class="doc-card">
+            <h3>Authentication</h3>
+            <p>Obtain your API key through the Discord bot management panel. Send it with every request in the <code>X-API-Key</code> header.</p>
+          </article>
+          <article class="doc-card">
+            <h3>Upload</h3>
+            <p>Multipart form with field <code>image</code> (required). Optional: <code>title</code>, <code>description</code>, <code>tags</code>.</p>
+          </article>
+          <article class="doc-card">
+            <h3>Reading</h3>
+            <p>Use <code>/images</code> for pagination, <code>/stats</code> for totals, and <code>/image/:id</code> for metadata of a specific upload.</p>
+          </article>
+          <article class="doc-card">
+            <h3>Delete</h3>
+            <p>Call <code>DELETE /image/:id</code> to remove an image. This also adjusts storage counters.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="status" class="status section">
+      <div class="container fade-up">
+        <h2 class="section-title">Service Status</h2>
+        <div class="status-grid">
+          <div class="status-card" id="api-health">
+            <div class="dot"></div>
+            <span>API</span>
+            <small id="api-health-text">Checking…</small>
+          </div>
+          <div class="status-card">
+            <div class="dot green"></div>
+            <span>CDN</span>
+            <small>Operational</small>
+          </div>
+          <div class="status-card">
+            <div class="dot green"></div>
+            <span>Storage</span>
+            <small>Operational</small>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Wick Studio" class="logo" />
+        <span class="brand-name">Wick Studio CDN</span>
+      </div>
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#api">API</a>
+        <a href="#docs">Docs</a>
+        <a href="#status">Status</a>
+      </nav>
+      <div class="copy">© <span id="year"></span> Wick Studio. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
